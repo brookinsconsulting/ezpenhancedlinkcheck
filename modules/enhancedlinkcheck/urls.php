@@ -13,6 +13,7 @@ $ModuleTools = ModuleTools::initialize( $Params );
 
 $Database = eZDB::instance();
 
+/*
 $cObjAttrVersionColumn = eZPersistentObject::getShortAttributeName(
     $Database, eZURLObjectLink::definition(), 'contentobject_attribute_version'
 );
@@ -83,9 +84,9 @@ $RecordsCount = (int) current(
         )
     )
 );
-
-return $ModuleTools->fetchResult( array(
+*/
+return $ModuleTools->fetchResult( false, array( 'variables' => array(
     'list_count' => $RecordsCount,
-));
+) ) );
 
 ?>
