@@ -112,6 +112,7 @@ table.display thead th div.DataTables_sort_wrapper span {
 	min-height: 302px;
 	_height: 302px;
 	clear: both;
+        top: 10px;
 }
 
 .dataTables_processing {

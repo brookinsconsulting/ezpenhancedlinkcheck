@@ -1,5 +1,6 @@
 {* Website URLs View *}
-{ezcss_require('demo_table.css', 'demo_table_jui.css')}
+{ezcss_require('demo_table.css')}
+{ezcss_require('demo_table_jui.css')}
 <div class="context-block">
     <div class="box-header">
         <div class="box-ml">
@@ -22,8 +23,8 @@
         <thead>
             <tr>
                 <th>{'Address'|i18n('design/admin/url/list')}</th>
-                <th>Subtree</th>
-                <th>State</th>
+                <th>{'Subtree'|i18n('design/admin/url/list')}</th>
+                <th>{'State'|i18n('design/admin/url/list')}</th>
                 <th>{'Status'|i18n('design/admin/url/list')}</th>
                 <th>{'Checked'|i18n('design/admin/url/list')}</th>
                 <th>{'Modified'|i18n('design/admin/url/list')}</th>
