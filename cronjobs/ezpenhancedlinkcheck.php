@@ -4,7 +4,7 @@
  *
  * @copyright Copyright (C) 1999 - 2014 Brookins Consulting. All rights reserved.
  * @copyright Copyright (C) 2013 - 2014 Think Creative. All rights reserved.
- * @copyright Copyright (C) 1999-2013 eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) 1999 - 2013 eZ Systems AS. All rights reserved.
  * @license http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License v2 (or any later version)
  * @version //autogentag//
  * @package ezpenhancedlinkcheck

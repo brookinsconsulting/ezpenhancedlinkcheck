@@ -9,7 +9,7 @@
  * @package ezpenhancedlinkcheck
  */
 
-$ModuleTools = ModuleTools::initialize( $Params );
+$ModuleTools = ModuleTools::instance($Module);
 
 $Database = eZDB::instance();
 
@@ -85,8 +85,9 @@ $RecordsCount = (int) current(
     )
 );
 */
-return $ModuleTools->fetchResult( false, array( 'variables' => array(
+
+return $ModuleTools->result(array(
     'list_count' => $RecordsCount,
-) ) );
+));
 
 ?>

@@ -30,4 +30,7 @@ Links[Urls]=enhancedlinkcheck/urls
 Links[Link management]=url/list
 Links[Extension project]=http://bitbucket.org/brookinsconsulting/ezpenhancedlinkcheck
 
+[Leftmenu_setup]
+Links[url_management]=enhancedlinkcheck/urls
+
 */ ?>

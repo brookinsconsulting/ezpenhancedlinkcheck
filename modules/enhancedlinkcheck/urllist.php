@@ -88,11 +88,30 @@ $RecordsCountSQL = "SELECT count(x.id) as count, x.* from (SELECT DISTINCT ezurl
 ) x
 ";
 
-$RecordsSQL = "SELECT x.icon, x.region, x.stat, x.valid, x.chkdate, x.moddate, x.editme from (SELECT DISTINCT
+$RecordsSQL = "SELECT x.icon, x.region, x.stat, x.valid, x.chkdate, x.moddate, x.editme from (SELECT DISTINCT";
+
+if( $sSearch != '' )
+{
+
+$RecordsSQL .= "
 
     CONCAT(
-    '<img width=\"16\" height=\"16\" title=\"URL\" alt=\"URL\" src=\"/share/icons/crystal-admin/16x16_indexed/apps/package_network.png\"> <a title=\"View information about URL.\" target=\"_blank\" href=\"/url/view/' ,ezurl.id,'\">',SUBSTRING(url,1,70), CASE WHEN CHAR_LENGTH(url) > 70 THEN  '...' ELSE '' END, '</a> (<a title=\"Open URL in new window.\" target=\"_blank\" href=\"' ,url, '\">open</a>)') as icon,
+    '<img width=\"16\" height=\"16\" title=\"URL\" alt=\"URL\" src=\"/share/icons/crystal-admin/16x16_indexed/apps/package_network.png\"> <a title=\"View information about URL.\" target=\"_blank\" href=\"/enhancedlinkcheck/urlview/' ,ezurl.id, '?offset=$Offset&limit=$Limit&sSearch=$sSearch', '\">',SUBSTRING(url,1,70), CASE WHEN CHAR_LENGTH(url) > 70 THEN  '...' ELSE '' END, '</a> (<a title=\"Open URL in new window.\" target=\"_blank\" href=\"' ,url, '\">open</a>)') as icon,
+";
 
+}
+else
+{
+
+$RecordsSQL .= "
+
+    CONCAT(
+    '<img width=\"16\" height=\"16\" title=\"URL\" alt=\"URL\" src=\"/share/icons/crystal-admin/16x16_indexed/apps/package_network.png\"> <a title=\"View information about URL.\" target=\"_blank\" href=\"/enhancedlinkcheck/urlview/' ,ezurl.id, '?offset=$Offset&limit=$Limit', '\">',SUBSTRING(url,1,70), CASE WHEN CHAR_LENGTH(url) > 70 THEN  '...' ELSE '' END, '</a> (<a title=\"Open URL in new window.\" target=\"_blank\" href=\"' ,url, '\">open</a>)') as icon,
+";
+
+}
+
+$RecordsSQL .= "
     replace(SUBSTR(path_identification_string,1,LOCATE('/', path_identification_string) -1), '_', ' ') as region,
 
     CASE
@@ -122,9 +141,16 @@ $RecordsSQL = "SELECT x.icon, x.region, x.stat, x.valid, x.chkdate, x.moddate, x
     THEN  '?'
     ELSE  DATE_FORMAT( FROM_UNIXTIME( ezurl.modified ) ,  '%m/%e/%Y %l:%i %p' )
     END as moddate,
-
-    concat('<a href=\"/url/edit/',ezurl.id,'\"><img title=\"Edit URL.\" alt=\"Edit\" src=\"/design/standard/images/edit.gif\"></a>') as editme
-
+";
+if( $sSearch != '' )
+{
+    $RecordsSQL .=" concat('<a href=\"/enhancedlinkcheck/edit/',ezurl.id, '?offset=$Offset&limit=$Limit&sSearch=$sSearch','\"><img title=\"Edit URL.\" alt=\"Edit\" src=\"/design/standard/images/edit.gif\"></a>') as editme";
+}
+else
+{
+    $RecordsSQL .=" concat('<a href=\"/enhancedlinkcheck/edit/',ezurl.id, '?offset=$Offset&limit=$Limit','\"><img title=\"Edit URL.\" alt=\"Edit\" src=\"/design/standard/images/edit.gif\"></a>') as editme";
+}
+    $RecordsSQL .="
     ,
     CONCAT (' ',CASE
     WHEN is_valid = 0
@@ -206,10 +232,9 @@ $RecordsCount = (int) current(
 $RecordsView = $Database->query(
     $RecordsSQL
 );
-// error_log( print_r( $RecordsView ) );
 
 $out = array();
-while ($row = mysqli_fetch_assoc($RecordsView)) {
+while ($row = mysql_fetch_assoc($RecordsView)) {
     $out[] = array(
         $row['icon'], ucwords($row['region']), $row['stat'], $row['valid'], $row['chkdate'], $row['moddate'], $row['editme']
     );
